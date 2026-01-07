@@ -34,6 +34,18 @@ export const useCanvas = ({
     };
   };
 
+  // Cursor Management
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    if (tool === 'hand') {
+        canvas.style.cursor = isDragging.current ? 'grabbing' : 'grab';
+    } else {
+        canvas.style.cursor = 'none'; // Hide default cursor for pen/eraser
+    }
+  }, [tool, canvasRef]); // Re-run when tool changes
+
   // Rendering Loop
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -169,7 +181,7 @@ export const useCanvas = ({
       isDragging.current = false;
       
       if (tool === 'hand') {
-        canvas.style.cursor = 'default';
+        canvas.style.cursor = 'grab';
       } else {
         if (currentStroke) {
           onStrokeComplete(currentStroke);

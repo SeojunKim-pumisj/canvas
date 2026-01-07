@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { CanvasContainer } from './components/CanvasContainer';
 import { Toolbar } from './components/Toolbar';
+import { Cursor } from './components/Cursor';
 import { useCanvas } from './hooks/useCanvas';
 import type { ToolType, Stroke, Point } from './types/types';
 
@@ -123,6 +124,10 @@ function App() {
   return (
     <div className="w-full h-full bg-white dark:bg-slate-900 text-slate-900 dark:text-white relative overflow-hidden transition-colors duration-300">
       <CanvasContainer canvasRef={canvasRef} />
+      
+      {/* Custom Cursor */}
+      <Cursor tool={tool} width={currentWidth} color={color} />
+
       <Toolbar 
         currentTool={tool}
         setTool={setTool}
